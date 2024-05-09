@@ -14,7 +14,6 @@
 
 char number;
 char **hostname;
-//Define two global variables to store the parameters of main()
 
 void dump(unsigned char* buf, int size) {
    int i;
