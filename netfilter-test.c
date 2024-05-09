@@ -72,7 +72,7 @@ static uint32_t print_pkt (struct nfq_data *tb)
    if (ifi)
       printf("physoutdev=%u ", ifi);
 
-   //아래의 부분 추가됨
+  
    if (nfq_get_uid(tb, &uid))
       printf("uid=%u ", uid);
 
@@ -82,7 +82,6 @@ static uint32_t print_pkt (struct nfq_data *tb)
    ret = nfq_get_secctx(tb, &secdata);
    if (ret > 0)
       printf("secctx=\"%.*s\" ", ret, secdata);
-   //여기까지
 
    ret = nfq_get_payload(tb, &data);
    if (ret >= 0){
@@ -148,9 +147,9 @@ int main(int argc, char **argv)
       return 0;
    }
 
+   //전역변수 값 설정
    number = argc;
    hostname = argv;
-   //Update two global variables by parameters of main().
 
    printf("opening library handle\n");
    h = nfq_open();
@@ -184,7 +183,6 @@ int main(int argc, char **argv)
       exit(1);
    }
 
-   //아래의 두개 추가됨.
    printf("setting flags to request UID and GID\n");
    if (nfq_set_queue_flags(qh, NFQA_CFG_F_UID_GID, NFQA_CFG_F_UID_GID)) {
       fprintf(stderr, "This kernel version does not allow to "
@@ -197,8 +195,7 @@ int main(int argc, char **argv)
             "retrieve security context.\n");
    }
 
-   printf("Waiting for packets..\n");
-   //여기까지. 
+   printf("Waiting for packets..\n"); 
    
    fd = nfq_fd(h);
 
